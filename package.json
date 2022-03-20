@@ -1,0 +1,23 @@
+{
+  "name": "1000blankwhitecardsmicroservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice/issues"
+  },
+  "homepage": "https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1"
+  }
+}
