@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server-dev": "npx nodemon server/index.js",
+    "client-dev": "npx nodemon client/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +19,9 @@
   },
   "homepage": "https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice#readme",
   "dependencies": {
+    "@socket.io/admin-ui": "^0.2.0",
     "express": "^4.17.3",
+    "mysql2": "^2.3.3",
     "socket.io": "^4.4.1"
   }
 }
