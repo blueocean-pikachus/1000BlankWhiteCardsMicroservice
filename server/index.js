@@ -5,15 +5,17 @@ const io = require("socket.io")(8080, {
     origin: ["http://localhost:3000", "https://admin.socket.io"],
   },
 })
+const pass = require('./config');
 
 const dbConnection = mysql.createConnection({
   user: 'root',
-  password: '56505under',
+  password: pass,
   database: 'BlankCards',
 });
 
 io.on("connection", socket => {
-  console.log(socket.id)
+  console.log(socket.id);
+
   socket.on("add-cards", (cards) => {
 
     let combinedQuery = "";
@@ -38,6 +40,7 @@ io.on("connection", socket => {
       }
     })
   })
+
   socket.on("get-cards", () => {
     dbConnection.query('SELECT * FROM cards', (err, cards) => {
       if (err) {
@@ -48,6 +51,7 @@ io.on("connection", socket => {
       }
     })
   })
+
   socket.on("move-card", (id, position) => {
     console.log('move-card');
     console.log(id, position);
@@ -66,6 +70,7 @@ io.on("connection", socket => {
       }
     })
   })
+
   socket.on("end-game", (cards) => {
     dbConnection.query('DELETE FROM cards', (err, cards) => {
       if (err) {
