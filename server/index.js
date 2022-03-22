@@ -49,8 +49,6 @@ io.on("connection", socket => {
 
     let combinedQuery = "";
 
-    console.log(cards.length);
-
     for (let i = 0; i < cards.length; i++) {
       combinedQuery = combinedQuery + `('${cards[i].createdBy}', '${cards[i].dateCreated}', '${cards[i].cardRules}', ${cards[i].points}, '${cards[i].image}', '${cards[i].tags}', 'deck'), `;
     }
