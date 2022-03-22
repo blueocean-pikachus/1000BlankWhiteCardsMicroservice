@@ -6,7 +6,12 @@ USE BlankCards;
 
 CREATE TABLE cards (
   id int NOT NULL AUTO_INCREMENT,
-  url varchar(300) NOT NULL,
+  createdBy varchar(100) NOT NULL,
+  dateCreated timestamp NOT NULL,
+  cardRules varchar(500) NOT NULL,
+  points int,
+  image varchar(300) NOT NULL,
+  tags varchar(300),
   position varchar(100) NOT NULL,
   PRIMARY KEY (id)
 );

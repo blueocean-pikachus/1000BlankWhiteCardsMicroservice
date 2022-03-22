@@ -2,7 +2,7 @@ const { instrument } = require('@socket.io/admin-ui');
 const mysql = require('mysql2');
 const io = require("socket.io")(8080, {
   cors: {
-    origin: '*',
+    origin: ["http://localhost:3000", "https://admin.socket.io"],
   },
 })
 
@@ -50,11 +50,11 @@ io.on("connection", socket => {
     let combinedQuery = "";
 
     for (let i = 0; i < cards.length; i++) {
-      combinedQuery = combinedQuery + `('${cards[i]}', 'deck'), `;
+      combinedQuery = combinedQuery + `('${cards[i].createdBy}', '${cards[i].dateCreated}', '${cards[i].cardRules}', ${cards[i].points}, '${cards[i].image}', '${cards[i].tags}', 'deck'), `;
     }
     combinedQuery = combinedQuery.slice(0, combinedQuery.length - 2);
 
-    dbConnection.query(`INSERT INTO cards (url, position) VALUES ${combinedQuery}`, (err, cards) => {
+    dbConnection.query(`INSERT INTO cards (createdBy, dateCreated, cardRules, points, image, tags, position) VALUES ${combinedQuery}`, (err, cards) => {
       if (err) {
         console.log(err);
       } else {
