@@ -45,7 +45,7 @@ This gets the list of cards with their picture urls and positions in the db. Use
 #### Add Cards
 ![image](https://user-images.githubusercontent.com/68455115/159385547-5ec6b0a3-6e7a-488e-ac6d-db2b5e0704c5.png)
 
-Use this to add as many cards to the db as you want in an array of picture urls. This also emits the updated list of cards to all socketed connections (they all default to being in the 'deck':
+Use this to add as many cards to the db as you want in an array of picture urls. This also emits the updated list of cards to all socketed connections (they all default to being in the 'deck'):
 
 ![image](https://user-images.githubusercontent.com/68455115/159385687-81782054-7146-44d1-b9ce-ca83ec39fd78.png)
 
