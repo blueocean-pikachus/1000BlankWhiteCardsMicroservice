@@ -61,7 +61,7 @@ io.on("connection", socket => {
             console.log(err);
           } else {
             console.log(cards);
-            io.emit("refresh", cards);
+            io.emit("card-list", cards);
           }
         })
       }
@@ -74,7 +74,7 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         console.log(cards);
-        io.emit("refresh", cards);
+        io.emit("card-list", cards);
       }
     })
   })
@@ -102,7 +102,7 @@ io.on("connection", socket => {
             console.log('error');
           } else {
             console.log(cards);
-            io.emit("refresh", cards);
+            io.emit("card-list", cards);
           }
         })
       }
