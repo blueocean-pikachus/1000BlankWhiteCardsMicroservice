@@ -2,9 +2,11 @@ const { instrument } = require('@socket.io/admin-ui');
 const mysql = require('mysql2');
 const io = require("socket.io")(8080, {
   cors: {
-    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    origin: '*',
   },
 })
+
+//["http://localhost:3000", "https://admin.socket.io"]
 const pass = require('./config');
 
 const dbConnection = mysql.createConnection({
