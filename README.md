@@ -12,6 +12,8 @@ First off make sure to 'npm install socket.io-client' and 'import io from 'socke
 
 ![image](https://user-images.githubusercontent.com/68455115/159384781-6a21128d-26bf-43c6-bc30-59289b3c50b3.png)
 
+Run the socket server "using npm run server-dev"
+
 ### NOTE
 TRY TO USE ADD's INSTEAD OF GET's SINCE ADD's ALSO SEND AN UPDATED LIST ALREADY. WHENEVER YOU EMIT, YOU ARE ALSO SENDING THE RESULT OF THAT EMIT TO OTHER SOCKETS THAT ARE CONNECTED SO THEY'LL ALSO UPDATE AUTOMATICALLY.
 
