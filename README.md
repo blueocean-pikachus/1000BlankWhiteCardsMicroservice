@@ -5,7 +5,7 @@ This is a socketed server used to keep track of up to 4 players in the game and 
 
 ### DB Schema
 
-![image](https://user-images.githubusercontent.com/68455115/159383553-54edd07d-f8ee-4db0-b73b-79ed39763e05.png)
+![image](https://user-images.githubusercontent.com/68455115/159588885-93a6b9fc-2bfa-4f5a-94b3-26f175f9c071.png)
 
 ### How to use
 First off make sure to 'npm install socket.io-client' and 'import io from 'socket.io-client';' in your react app then connect to the socket using:
@@ -43,9 +43,9 @@ This gets the list of cards with their picture urls and positions in the db. Use
 ![image](https://user-images.githubusercontent.com/68455115/159385330-c0019552-500e-4c49-ad6c-effd299d73a4.png)
 
 #### Add Cards
-![image](https://user-images.githubusercontent.com/68455115/159385547-5ec6b0a3-6e7a-488e-ac6d-db2b5e0704c5.png)
+![image](https://user-images.githubusercontent.com/68455115/159589089-4b5db0e9-1063-4449-9b7c-581b65a072a8.png)
 
-Use this to add as many cards to the db as you want in an array of picture urls. This also emits the updated list of cards to all socketed connections (they all default to being in the 'deck'):
+Use this to add as many cards to the db as you want in an array of card info objects. This also emits the updated list of cards to all socketed connections (they all default to being in the 'deck'):
 
 ![image](https://user-images.githubusercontent.com/68455115/159385687-81782054-7146-44d1-b9ce-ca83ec39fd78.png)
 
