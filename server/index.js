@@ -16,6 +16,33 @@ const dbConnection = mysql.createConnection({
 io.on("connection", socket => {
   console.log(socket.id);
 
+  socket.on("add-player", (name) => {
+    dbConnection.query('SELECT * FROM players', (err, players) => {
+      if (err) {
+        console.log('error');
+      } else {
+        if (players.length < 4) {
+          dbConnection.query(`INSERT INTO players (socketID, name) VALUES (?, ?)`, [socket.id, name], (err, players) => {
+            if (err) {
+              console.log(err);
+            } else {
+              dbConnection.query('SELECT * FROM players', (err, players) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log(players);
+                  io.emit("newPlayer", players);
+                }
+              })
+            }
+          })
+        } else {
+          io.emit("maxPlayers");
+        }
+      }
+    })
+  })
+
   socket.on("add-cards", (cards) => {
 
     let combinedQuery = "";
@@ -52,6 +79,17 @@ io.on("connection", socket => {
     })
   })
 
+  socket.on("get-players", () => {
+    dbConnection.query('SELECT * FROM players', (err, players) => {
+      if (err) {
+        console.log('error');
+      } else {
+        console.log(players);
+        io.emit("player-list", players);
+      }
+    })
+  })
+
   socket.on("move-card", (id, position) => {
     console.log('move-card');
     console.log(id, position);
@@ -77,6 +115,12 @@ io.on("connection", socket => {
         console.log('error');
       }
     })
+    dbConnection.query('DELETE FROM players', (err, cards) => {
+      if (err) {
+        console.log('error');
+      }
+    })
+    socket.disconnect();
   })
 })
 

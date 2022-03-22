@@ -10,3 +10,10 @@ CREATE TABLE cards (
   position varchar(100) NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE players (
+  id int NOT NULL AUTO_INCREMENT,
+  socketID varchar(300) NOT NULL,
+  name varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+);
