@@ -17,6 +17,7 @@ const dbConnection = mysql.createConnection({
 
 io.on("connection", socket => {
   console.log(socket.id);
+  socket.join("title");
 
   socket.on("add-player", (name) => {
     dbConnection.query('SELECT * FROM players', (err, players) => {
@@ -24,6 +25,8 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         if (players.length < 4) {
+          socket.join("game");
+          socket.leave("title");
           dbConnection.query(`INSERT INTO players (socketID, name) VALUES (?, ?)`, [socket.id, name], (err, players) => {
             if (err) {
               console.log(err);
@@ -33,13 +36,13 @@ io.on("connection", socket => {
                   console.log(err);
                 } else {
                   console.log(players);
-                  io.emit("newPlayer", players);
+                  io.to("game").emit("newPlayer", players);
                 }
               })
             }
           })
         } else {
-          io.emit("maxPlayers");
+          io.to("title").emit("maxPlayers");
         }
       }
     })
@@ -63,7 +66,7 @@ io.on("connection", socket => {
             console.log(err);
           } else {
             console.log(cards);
-            io.emit("card-list", cards);
+            io.to("game").emit("card-list", cards);
           }
         })
       }
@@ -76,7 +79,7 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         console.log(cards);
-        io.emit("card-list", cards);
+        io.to("game").emit("card-list", cards);
       }
     })
   })
@@ -87,7 +90,7 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         console.log(players);
-        io.emit("player-list", players);
+        io.to("game").emit("player-list", players);
       }
     })
   })
@@ -104,7 +107,7 @@ io.on("connection", socket => {
             console.log('error');
           } else {
             console.log(cards);
-            io.emit("card-list", cards);
+            io.to("game").emit("card-list", cards);
           }
         })
       }
@@ -122,7 +125,11 @@ io.on("connection", socket => {
         console.log('error');
       }
     })
-    socket.disconnect();
+    //socket.disconnect();
+    io.sockets.clients("game").forEach(function(user){
+      user.leave("game");
+      user.join("title");
+    });
   })
 })
 
