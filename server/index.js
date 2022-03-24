@@ -2,7 +2,7 @@ const { instrument } = require('@socket.io/admin-ui');
 const mysql = require('mysql2');
 const io = require("socket.io")(8080, {
   cors: {
-    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    origin: ["http://localhost:3000", "https://admin.socket.io", "http://18.215.43.205/", "http://54.84.135.252:3000", "http://18.215.43.205:3000"],
   },
 })
 
