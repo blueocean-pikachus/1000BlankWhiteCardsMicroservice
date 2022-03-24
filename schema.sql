@@ -7,7 +7,7 @@ USE BlankCards;
 CREATE TABLE cards (
   id int NOT NULL AUTO_INCREMENT,
   createdBy varchar(100) NOT NULL,
-  dateCreated timestamp NOT NULL,
+  dateCreated varchar(100) NOT NULL,
   cardRules varchar(500) NOT NULL,
   points int,
   image varchar(300) NOT NULL,
