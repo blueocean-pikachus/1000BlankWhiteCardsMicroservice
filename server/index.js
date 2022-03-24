@@ -115,7 +115,7 @@ io.on("connection", socket => {
   })
 
   socket.on("end-game", (cards) => {
-    dbConnection.query('UPDATE cards SET position = "deck"', (err, cards) => {
+    dbConnection.query('UPDATE cards SET position = "library"', (err, cards) => {
       if (err) {
         console.log('error');
       }
