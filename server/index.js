@@ -2,7 +2,7 @@ const { instrument } = require('@socket.io/admin-ui');
 const mysql = require('mysql2');
 const io = require("socket.io")(8080, {
   cors: {
-    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    origin: ["http://localhost:3000", "https://admin.socket.io", "http://18.215.43.205/", "http://54.84.135.252:3000", "http://18.215.43.205:3000"],
   },
 })
 
@@ -17,6 +17,7 @@ const dbConnection = mysql.createConnection({
 
 io.on("connection", socket => {
   console.log(socket.id);
+  socket.join("title");
 
   socket.on("add-player", (name) => {
     dbConnection.query('SELECT * FROM players', (err, players) => {
@@ -24,6 +25,8 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         if (players.length < 4) {
+          socket.join("game");
+          socket.leave("title");
           dbConnection.query(`INSERT INTO players (socketID, name) VALUES (?, ?)`, [socket.id, name], (err, players) => {
             if (err) {
               console.log(err);
@@ -63,7 +66,7 @@ io.on("connection", socket => {
             console.log(err);
           } else {
             console.log(cards);
-            io.emit("card-list", cards);
+            io.to("game").emit("card-list", cards);
           }
         })
       }
@@ -104,7 +107,7 @@ io.on("connection", socket => {
             console.log('error');
           } else {
             console.log(cards);
-            io.emit("card-list", cards);
+            io.to("game").emit("card-list", cards);
           }
         })
       }
@@ -112,7 +115,7 @@ io.on("connection", socket => {
   })
 
   socket.on("end-game", (cards) => {
-    dbConnection.query('DELETE FROM cards', (err, cards) => {
+    dbConnection.query('UPDATE cards SET position = "library"', (err, cards) => {
       if (err) {
         console.log('error');
       }
@@ -122,7 +125,9 @@ io.on("connection", socket => {
         console.log('error');
       }
     })
-    socket.disconnect();
+    //socket.disconnect();
+    socket.leave('game');
+    socket.join('title');
   })
 })
 
