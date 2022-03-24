@@ -36,13 +36,13 @@ io.on("connection", socket => {
                   console.log(err);
                 } else {
                   console.log(players);
-                  io.to("game").emit("newPlayer", players);
+                  io.emit("newPlayer", players);
                 }
               })
             }
           })
         } else {
-          io.to("title").emit("maxPlayers");
+          io.emit("maxPlayers");
         }
       }
     })
@@ -79,7 +79,7 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         console.log(cards);
-        io.to("game").emit("card-list", cards);
+        io.emit("card-list", cards);
       }
     })
   })
@@ -90,7 +90,7 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         console.log(players);
-        io.to("game").emit("player-list", players);
+        io.emit("player-list", players);
       }
     })
   })
@@ -115,7 +115,7 @@ io.on("connection", socket => {
   })
 
   socket.on("end-game", (cards) => {
-    dbConnection.query('DELETE FROM cards', (err, cards) => {
+    dbConnection.query('UPDATE cards SET position = "deck"', (err, cards) => {
       if (err) {
         console.log('error');
       }
@@ -126,10 +126,8 @@ io.on("connection", socket => {
       }
     })
     //socket.disconnect();
-    io.sockets.clients("game").forEach(function(user){
-      user.leave("game");
-      user.join("title");
-    });
+    socket.leave('game');
+    socket.join('title');
   })
 })
 
