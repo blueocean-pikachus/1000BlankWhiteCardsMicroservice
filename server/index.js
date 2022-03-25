@@ -17,7 +17,7 @@ const dbConnection = mysql.createConnection({
 
 io.on("connection", socket => {
   console.log(socket.id);
-  socket.join("title");
+  // socket.join("title");
 
   socket.on("add-player", (name) => {
     dbConnection.query('SELECT * FROM players', (err, players) => {
@@ -25,8 +25,8 @@ io.on("connection", socket => {
         console.log('error');
       } else {
         if (players.length < 4) {
-          socket.join("game");
-          socket.leave("title");
+          // socket.join("game");
+          // socket.leave("title");
           dbConnection.query(`INSERT INTO players (socketID, name) VALUES (?, ?)`, [socket.id, name], (err, players) => {
             if (err) {
               console.log(err);
@@ -66,7 +66,8 @@ io.on("connection", socket => {
             console.log(err);
           } else {
             console.log(cards);
-            io.to("game").emit("card-list", cards);
+            // io.to("game").emit("card-list", cards);
+            io.emit("card-list", cards);
           }
         })
       }
@@ -107,7 +108,8 @@ io.on("connection", socket => {
             console.log('error');
           } else {
             console.log(cards);
-            io.to("game").emit("card-list", cards);
+            // io.to("game").emit("card-list", cards);
+            io.emit("card-list", cards);
           }
         })
       }
@@ -125,9 +127,12 @@ io.on("connection", socket => {
         console.log('error');
       }
     })
+    io.emit("player-list", []);
+
+
     //socket.disconnect();
-    socket.leave('game');
-    socket.join('title');
+    // socket.leave('game');
+    // socket.join('title');
   })
 })
 
